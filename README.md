@@ -11,9 +11,9 @@ run using [tox][3], and the dependencies are managed using [pip][4].
 ```
 ~ pip install -r requirements.xt
 ~ tox
-.
-.
-.
+  ...
+  ...
+  ...
   py27: commands succeeded
   py36: commands succeeded
   congratulations :)
