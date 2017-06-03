@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+import codecs
 
 class Mapping(object):
     """A reversible function that can be applied to an input."""
@@ -38,4 +39,9 @@ class IdentityMapping(SymmetricMapping):
     def _map(self, input_char):
         return input_char
 
+class Rot13Mapping(SymmetricMapping):
+    def _map(self, input_char):
+        return codecs.encode(input_char, 'rot13')
+
 IDENTITY = IdentityMapping()
+ROT13 = Rot13Mapping()
