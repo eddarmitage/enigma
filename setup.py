@@ -7,5 +7,8 @@ setup(
         package_dir={'':'src'},
         url='http://github.com/eddarmitage/enigma',
         author='Edd Armitage',
-        license='MIT'
-        )
+        license='MIT',
+        install_requires=[
+            'bidict',
+            'six'
+        ])

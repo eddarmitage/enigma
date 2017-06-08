@@ -1,6 +1,8 @@
 from string import ascii_uppercase
 import codecs
-from enigma.mappings import IDENTITY, ROT13
+from enigma.mappings import IDENTITY, ROT13, AsciiMapping
+
+ROT13_OUTPUT = [codecs.encode(c, 'rot13') for c in ascii_uppercase]
 
 def test_identity_mapping():
     """Ensure IDENTITY mapping maps every uppercase ASCII letter to itself"""
@@ -8,10 +10,14 @@ def test_identity_mapping():
 
 def test_rot13_mapping():
     """Ensure ROT13 mapping works, and is symmetric"""
-    expected_output = [codecs.encode(c, 'rot13') for c in ascii_uppercase]
+    assert_mappings(ROT13, ascii_uppercase, ROT13_OUTPUT)
+    assert_mappings(ROT13, ROT13_OUTPUT, ascii_uppercase)
 
-    assert_mappings(ROT13, ascii_uppercase, expected_output)
-    assert_mappings(ROT13, expected_output, ascii_uppercase)
+def test_ascii_mapping():
+    """Test the AsciiMapping using a ROT13 output encoding"""
+    mapping = AsciiMapping(ROT13_OUTPUT)
+    assert_mappings(mapping, ascii_uppercase, ROT13_OUTPUT)
+    assert_mappings(mapping, ROT13_OUTPUT, ascii_uppercase)
 
 def assert_mappings(mapping, input_sequence, output_sequence):
     """
